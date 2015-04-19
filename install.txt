@@ -1,0 +1,3 @@
+Install the package python-th by using the command - 
+
+sudo apt-get install python-tk
