@@ -29,8 +29,9 @@ class torsion:
     x = float(values[0]) 
     y = float(values[1])
 
-    if x>c or y>c:
-      print 'Coordinates not possible'
+    # Check if the values lie within the circular beam
+    if x>c or y>c or (x*x+y*y)>c*c:
+      self.max_statement = 'Coordinates not possible'
     else:
       self.ip = pi * math.pow(c,4)/2.0
       self.yz = torque*x/self.ip
@@ -57,8 +58,9 @@ class torsion:
     x = float(values[0])
     y = float(values[1])
 
+    # Check if values lie within the beam
     if x>a or y>b:
-      print 'Coordinates not possible'
+      self.max_statement = 'Coordinates not possible'
     else:
       self.yz = 2*torque*x/(pi*math.pow(a,3)*b)
       self.zx = 2*torque*y/(pi*a*math.pow(b,3))
@@ -111,8 +113,9 @@ def main():
   elif choice == 3:
     t.triangle()
 
-  print 'The (yz,zx) component of stresses are :' + str((t.yz,t.zx))
-  print 'The resultant stress has a magnitude of '+ str(t.total) +' and is directed at an angle of '+str(t.theta)+' radians'
+  if not (t.yz == 0.0 and t.zx == 0.0): 
+    print 'The (yz,zx) component of stresses are :' + str((t.yz,t.zx))
+    print 'The resultant stress has a magnitude of '+ str(t.total) +' and is directed at an angle of '+str(t.theta)+' radians'
   print t.max_statement
 
 main()
